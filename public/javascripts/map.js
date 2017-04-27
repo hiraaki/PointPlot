@@ -18,6 +18,7 @@ function addble() {
 
 var markers = [];
 var id=-1;
+var exit=false;
 function addMarker(location){
     var marker = new google.maps.Marker({
         position: location,
@@ -26,23 +27,49 @@ function addMarker(location){
     });
     markers.push(marker);
     id = id +1;
+    var content = "Primeira Rua:<input type='text' id='pRua'/> <br/>Segunda Rua:<input type='text' id='sRua'/> <br />" +
+                "<input type = 'button' onclick = 'salvar(" + marker.id+ ");' value = 'Salvar' />";
+
+
+    var infoWindow = new google.maps.InfoWindow({
+        content: content
+    });
+    infoWindow.open(map, marker);
+    if(exit==true){
+        infoWindow.close(map, marker);
+    }
 
 }
 
 
+function salvar(id) {
+    var X = document.getElementById("pRua").value;
+    var Y = document.getElementById("sRua").value;
+
+    for (var i = 0; i < markers.length; i++) {
+        if (markers[i].id == id) {
+           markers[i].setTitle(X+"|"+Y);
+           
+        }
+    }
+
+}
+
+
+
+
 function removable(){
     for(var i =0; i< markers.length;i++){
-        addNewListeners(markers[i]);
+        addDelListeners(markers[i]);
     }
 }
 
 
 
-function addNewListeners(marker) {
+function addDelListeners(marker) {
     google.maps.event.addListener(marker, "click", function (e) {
-        console.log(marker.id);
-        var content = 'Latitude: ' + marker.position.lat() + '<br />Longitude: ' + marker.position.lng();
-        content += "<br /><input type = 'button' va;ue = 'Delete' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />";
+        var content = "Latitude: " + marker.position.lat() + "<br />Longitude: " + marker.position.lng()
+                    + "<br /><input type = 'button' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />";
 
         var infoWindow = new google.maps.InfoWindow({
             content: content
@@ -69,6 +96,13 @@ function DeleteMarker(id) {
 
 
 
+
+function recenter() {
+    var X =document.getElementById("Rua1");
+    var y =document.getElementById("Rua2");
+}
+
+
 function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
@@ -77,8 +111,4 @@ function initMap() {
         mapTypeControl: true,
         mapTypeId: google.maps.MapTypeId.SATELLITE
     });
-
-
-
-
 }
