@@ -1,21 +1,34 @@
 package models;
+import com.avaje.ebean.Model;
+import javax.persistence.*;
 
 /**
  * Created by mhi on 27/04/17.
  */
-public class Equina {
-
-    private int id;
+@Entity
+public class Equina extends Model{
+    @Id
+    @GeneratedValue
+    private double id;
     private Rua rua1;
     private Rua rua2;
+    private Bairro bairro;
     private double longitude;
     private double latitude;
 
-    public int getId() {
+    public Bairro getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(Bairro bairro) {
+        this.bairro = bairro;
+    }
+
+    public double getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(double id) {
         this.id = id;
     }
 

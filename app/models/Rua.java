@@ -1,10 +1,18 @@
 package models;
 
+import com.avaje.ebean.Model;
+
+import javax.persistence.*;
+
 /**
  * Created by mhi on 27/04/17.
  */
-public static class Rua {
+@Entity
+public class Rua extends Model{
+    @Id
+    @GeneratedValue
     private int id;
+
     private String nome;
 
     public int getId() {

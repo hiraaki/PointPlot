@@ -49,13 +49,36 @@ function salvar(id) {
     for (var i = 0; i < markers.length; i++) {
         if (markers[i].id == id) {
            markers[i].setTitle(X+"|"+Y);
-           
+           savePonto(markers[i],X,Y);
         }
     }
 
 }
 
-
+function savePonto(marker,rua1,rua2){
+    var obj;
+    obj={
+        "Rua1":rua1,
+        "Rua2":rua2,
+        "Latitude":marker.position.lat,
+        "Longitude":marker.position.lng
+    };
+    $.ajax({
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        async: false,
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        url: '/savePoint',
+        success: function (json) {
+            window.alert("yes");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            window.alert("Erro");
+        }
+    });
+}
 
 
 function removable(){
