@@ -58,13 +58,14 @@ function salvar(id) {
 function savePonto(marker,rua1,rua2){
     var obj;
     obj={
+        "Id":marker.id,
         "Rua1":rua1,
         "Rua2":rua2,
         "Latitude":marker.position.lat,
         "Longitude":marker.position.lng
     };
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         contentType: 'application/json',
         dataType: 'json',
         async: false,
@@ -72,7 +73,10 @@ function savePonto(marker,rua1,rua2){
         contentType: "application/json; charset=utf-8",
         url: '/savePoint',
         success: function (json) {
-            window.alert("yes");
+             var objt=json;
+            for(var i = 0; i < objt.length; i++ ) {
+                window.alert("yes recivede!!" + objt[i].Esquina.Rua1);
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             window.alert("Erro");

@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by mhi on 27/04/17.
  */
 @Entity
-public class Equina extends Model{
+public class Esquina extends Model{
     @Id
     @GeneratedValue
     private double id;
